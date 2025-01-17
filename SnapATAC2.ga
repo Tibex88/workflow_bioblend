@@ -1,0 +1,634 @@
+{
+    "a_galaxy_workflow": "true",
+    "annotation": "Takes a cell-type-annotated AnnData object (processed with SnapATAC2) and performs peak calling with MACS3 on the cell types. Next, a cell-by-peak matrix is constructed and differential accessibility tests are performed for comparison of either two cell types or one cell type with a background of all other cells. \nLastly, differentially accessible marker regions for each cell type are identified. ",
+    "comments": [
+        {
+            "child_steps": [
+                10
+            ],
+            "color": "none",
+            "data": {
+                "title": "Finding marker regions"
+            },
+            "id": 4,
+            "position": [
+                1356.2,
+                0
+            ],
+            "size": [
+                240,
+                300
+            ],
+            "type": "frame"
+        },
+        {
+            "child_steps": [
+                7,
+                6,
+                4
+            ],
+            "color": "none",
+            "data": {
+                "title": "Peak Calling"
+            },
+            "id": 1,
+            "position": [
+                286.2,
+                0
+            ],
+            "size": [
+                740,
+                254.8
+            ],
+            "type": "frame"
+        },
+        {
+            "child_steps": [
+                1,
+                0
+            ],
+            "color": "none",
+            "data": {
+                "title": "Inputs"
+            },
+            "id": 0,
+            "position": [
+                0.0,
+                6.5
+            ],
+            "size": [
+                244.7,
+                241.7
+            ],
+            "type": "frame"
+        },
+        {
+            "child_steps": [
+                2,
+                3
+            ],
+            "color": "none",
+            "data": {
+                "title": "Cell-type inputs"
+            },
+            "id": 2,
+            "position": [
+                6.199999999999989,
+                310
+            ],
+            "size": [
+                230,
+                210
+            ],
+            "type": "frame"
+        },
+        {
+            "child_steps": [
+                8,
+                9
+            ],
+            "color": "none",
+            "data": {
+                "title": "Differential Gene Expression"
+            },
+            "id": 3,
+            "position": [
+                1036.2,
+                0
+            ],
+            "size": [
+                310,
+                810
+            ],
+            "type": "frame"
+        }
+    ],
+    "format-version": "0.1",
+    "name": "Differential peak analysis with SnapATAC2",
+    "report": {
+        "markdown": "\n# Workflow Execution Report\n\n## Workflow Inputs\n```galaxy\ninvocation_inputs()\n```\n\n## Workflow Outputs\n```galaxy\ninvocation_outputs()\n```\n\n## Workflow\n```galaxy\nworkflow_display()\n```\n"
+    },
+    "steps": {
+        "0": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 0,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Cell-type Annotated AnnData"
+                }
+            ],
+            "label": "Cell-type Annotated AnnData",
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "left": 24.75468749999999,
+                "top": 46.515625
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"tag\": null}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "77642069-a3ca-4f64-acf2-8082ee774155",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "1": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 1,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "chrom_sizes_new.txt"
+                }
+            ],
+            "label": "chrom_sizes_new.txt",
+            "name": "Input dataset",
+            "outputs": [],
+            "position": {
+                "left": 20.02812499999999,
+                "top": 146.0390625
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"tag\": null}",
+            "tool_version": null,
+            "type": "data_input",
+            "uuid": "2f31498d-1fe1-489c-8f4e-8327c558bb7c",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "2": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 2,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Cell-type #1"
+                }
+            ],
+            "label": "Cell-type #1",
+            "name": "Input parameter",
+            "outputs": [],
+            "position": {
+                "left": 26.19999999999999,
+                "top": 340
+            },
+            "tool_id": null,
+            "tool_state": "{\"parameter_type\": \"text\", \"optional\": false}",
+            "tool_version": null,
+            "type": "parameter_input",
+            "uuid": "a2e9440b-5889-4f3b-8467-be0420e2d6ab",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "3": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 3,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "Cell-type #2"
+                }
+            ],
+            "label": "Cell-type #2",
+            "name": "Input parameter",
+            "outputs": [],
+            "position": {
+                "left": 26.19999999999999,
+                "top": 430
+            },
+            "tool_id": null,
+            "tool_state": "{\"parameter_type\": \"text\", \"optional\": false}",
+            "tool_version": null,
+            "type": "parameter_input",
+            "uuid": "7f37c649-7bbd-4ac7-a01a-b8998834e1c2",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "4": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "errors": null,
+            "id": 4,
+            "input_connections": {
+                "method|adata": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                }
+            ],
+            "label": "macs3",
+            "name": "SnapATAC2 peaks and motif",
+            "outputs": [
+                {
+                    "name": "anndata_out",
+                    "type": "h5ad"
+                }
+            ],
+            "position": {
+                "left": 306.2,
+                "top": 40
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "64fa083411f1",
+                "name": "snapatac2_peaks_and_motif",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"__input_ext\": \"input\", \"advanced_common\": {\"show_log\": false}, \"chromInfo\": \"/opt/galaxy/tool-data/shared/ucsc/chrom/?.len\", \"method\": {\"method\": \"tl.macs3\", \"__current_case__\": 0, \"adata\": {\"__class__\": \"ConnectedValue\"}, \"groupby\": \"cell_type\", \"qvalue\": \"0.05\", \"replicate\": \"\", \"replicate_qvalue\": null, \"max_frag_size\": null, \"nolambda\": false, \"shift\": \"-100\", \"extsize\": \"200\", \"min_len\": null, \"blacklist\": null, \"key_added\": \"macs3\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.6.4+galaxy1",
+            "type": "tool",
+            "uuid": "cf6a88f6-b0c6-4f2a-8f36-29c37a81def3",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "5": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_plotting/snapatac2_plotting/2.6.4+galaxy1",
+            "errors": null,
+            "id": 5,
+            "input_connections": {
+                "method|adata": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool SnapATAC2 Plotting",
+                    "name": "method"
+                }
+            ],
+            "label": "cell-types_UMAP-plot",
+            "name": "SnapATAC2 Plotting",
+            "outputs": [
+                {
+                    "name": "out_png",
+                    "type": "png"
+                }
+            ],
+            "position": {
+                "left": 286.2,
+                "top": 270
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_plotting/snapatac2_plotting/2.6.4+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "05bd4db20227",
+                "name": "snapatac2_plotting",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"advanced_common\": {\"show_log\": false}, \"method\": {\"method\": \"pl.umap\", \"__current_case__\": 2, \"adata\": {\"__class__\": \"ConnectedValue\"}, \"color\": \"cell_type\", \"use_rep\": \"X_umap\", \"marker_size\": null, \"marker_opacity\": \"1.0\", \"sample_size\": null, \"width\": \"600\", \"height\": \"400\", \"out_file\": \"png\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.6.4+galaxy1",
+            "type": "tool",
+            "uuid": "bed4e4bc-44d9-4ffd-af23-d7414790b2f0",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "6": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "errors": null,
+            "id": 6,
+            "input_connections": {
+                "method|adata": {
+                    "id": 4,
+                    "output_name": "anndata_out"
+                },
+                "method|chrom_sizes": {
+                    "id": 1,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                },
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                }
+            ],
+            "label": "merge_peaks",
+            "name": "SnapATAC2 peaks and motif",
+            "outputs": [
+                {
+                    "name": "anndata_out",
+                    "type": "h5ad"
+                },
+                {
+                    "name": "merged_peaks",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "left": 536.2,
+                "top": 40
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "64fa083411f1",
+                "name": "snapatac2_peaks_and_motif",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"__input_ext\": \"input\", \"advanced_common\": {\"show_log\": false}, \"chromInfo\": \"/opt/galaxy/tool-data/shared/ucsc/chrom/?.len\", \"method\": {\"method\": \"tl.merge_peaks\", \"__current_case__\": 1, \"adata\": {\"__class__\": \"ConnectedValue\"}, \"macs_key\": \"macs3\", \"chrom_sizes\": {\"__class__\": \"ConnectedValue\"}, \"half_width\": \"250\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.6.4+galaxy1",
+            "type": "tool",
+            "uuid": "1a62b527-0158-4a30-9fce-939a6d4a1a4f",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "7": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "errors": null,
+            "id": 7,
+            "input_connections": {
+                "method|adata": {
+                    "id": 6,
+                    "output_name": "anndata_out"
+                },
+                "method|merged_peaks": {
+                    "id": 6,
+                    "output_name": "merged_peaks"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                },
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                }
+            ],
+            "label": "make_peak_matrix",
+            "name": "SnapATAC2 peaks and motif",
+            "outputs": [
+                {
+                    "name": "anndata_out",
+                    "type": "h5ad"
+                }
+            ],
+            "position": {
+                "left": 806.2,
+                "top": 40
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "64fa083411f1",
+                "name": "snapatac2_peaks_and_motif",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"advanced_common\": {\"show_log\": false}, \"method\": {\"method\": \"pp.make_peak_matrix\", \"__current_case__\": 2, \"adata\": {\"__class__\": \"ConnectedValue\"}, \"use_rep\": \"Peaks\", \"merged_peaks\": {\"__class__\": \"ConnectedValue\"}, \"chunk_size\": \"500\", \"use_x\": false, \"min_frag_size\": null, \"max_frag_size\": null, \"counting_strategy\": \"insertion\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.6.4+galaxy1",
+            "type": "tool",
+            "uuid": "9cfc3922-c45f-4842-aad3-d8bb1023a254",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "8": {
+            "annotation": "Compares differentially accessible peaks between two cell types (f.ex. Memory B and Naive B cells)",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "errors": null,
+            "id": 8,
+            "input_connections": {
+                "method|adata": {
+                    "id": 7,
+                    "output_name": "anndata_out"
+                },
+                "method|compare|group1_value": {
+                    "id": 2,
+                    "output_name": "output"
+                },
+                "method|compare|group2_value": {
+                    "id": 3,
+                    "output_name": "output"
+                },
+                "method|merged_peaks": {
+                    "id": 6,
+                    "output_name": "merged_peaks"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                },
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                }
+            ],
+            "label": "Differential Expression between two cell types",
+            "name": "SnapATAC2 peaks and motif",
+            "outputs": [
+                {
+                    "name": "anndata_out",
+                    "type": "h5ad"
+                },
+                {
+                    "name": "out_png",
+                    "type": "png"
+                },
+                {
+                    "name": "diff_peaks",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "left": 1063.410935713784,
+                "top": 39.989066749623476
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "64fa083411f1",
+                "name": "snapatac2_peaks_and_motif",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"advanced_common\": {\"show_log\": false}, \"method\": {\"method\": \"tl.diff_test\", \"__current_case__\": 4, \"adata\": {\"__class__\": \"RuntimeValue\"}, \"merged_peaks\": {\"__class__\": \"RuntimeValue\"}, \"group_key\": \"cell_type\", \"compare\": {\"with\": \"single_group\", \"__current_case__\": 0, \"group1_value\": {\"__class__\": \"ConnectedValue\"}, \"group2_value\": {\"__class__\": \"ConnectedValue\"}}, \"direction\": \"both\", \"min_log_fc\": \"0.25\", \"min_pct\": \"0.05\", \"width\": \"600\", \"height\": \"400\", \"out_file\": \"png\", \"cutoff_p_adj\": \"0.01\", \"cutoff_l2fc\": \"1.0\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.6.4+galaxy1",
+            "type": "tool",
+            "uuid": "320728af-2fb7-4b32-809a-69272e7fd185",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "9": {
+            "annotation": "Compares differentially accessible peaks between a cell type (f.ex. Naive B cell) and 30 random \"background\" cells of the other cell types",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "errors": null,
+            "id": 9,
+            "input_connections": {
+                "method|adata": {
+                    "id": 7,
+                    "output_name": "anndata_out"
+                },
+                "method|compare|group1_value": {
+                    "id": 2,
+                    "output_name": "output"
+                },
+                "method|merged_peaks": {
+                    "id": 6,
+                    "output_name": "merged_peaks"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                },
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                }
+            ],
+            "label": "Differential Expression compared to all cell types",
+            "name": "SnapATAC2 peaks and motif",
+            "outputs": [
+                {
+                    "name": "anndata_out",
+                    "type": "h5ad"
+                },
+                {
+                    "name": "out_png",
+                    "type": "png"
+                },
+                {
+                    "name": "diff_peaks",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "left": 1066.2,
+                "top": 380
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "64fa083411f1",
+                "name": "snapatac2_peaks_and_motif",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"advanced_common\": {\"show_log\": false}, \"method\": {\"method\": \"tl.diff_test\", \"__current_case__\": 4, \"adata\": {\"__class__\": \"RuntimeValue\"}, \"merged_peaks\": {\"__class__\": \"RuntimeValue\"}, \"group_key\": \"cell_type\", \"compare\": {\"with\": \"background_group\", \"__current_case__\": 1, \"group1_value\": {\"__class__\": \"ConnectedValue\"}, \"number_of_cells\": \"30\"}, \"direction\": \"both\", \"min_log_fc\": \"0.25\", \"min_pct\": \"0.05\", \"width\": \"600\", \"height\": \"400\", \"out_file\": \"png\", \"cutoff_p_adj\": \"0.01\", \"cutoff_l2fc\": \"1.0\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.6.4+galaxy1",
+            "type": "tool",
+            "uuid": "e92b039f-d810-4e29-8cbe-885a4d884d0b",
+            "when": null,
+            "workflow_outputs": []
+        },
+        "10": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "errors": null,
+            "id": 10,
+            "input_connections": {
+                "method|adata": {
+                    "id": 7,
+                    "output_name": "anndata_out"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool SnapATAC2 peaks and motif",
+                    "name": "method"
+                }
+            ],
+            "label": "marker_regions",
+            "name": "SnapATAC2 peaks and motif",
+            "outputs": [
+                {
+                    "name": "anndata_out",
+                    "type": "h5ad"
+                },
+                {
+                    "name": "hidden_output",
+                    "type": "txt"
+                },
+                {
+                    "name": "out_png",
+                    "type": "png"
+                }
+            ],
+            "position": {
+                "left": 1376.2172305497002,
+                "top": 40.046873730982725
+            },
+            "post_job_actions": {
+                "TagDatasetActionanndata_out": {
+                    "action_arguments": {
+                        "tags": "marker_regions"
+                    },
+                    "action_type": "TagDatasetAction",
+                    "output_name": "anndata_out"
+                },
+                "TagDatasetActionout_png": {
+                    "action_arguments": {
+                        "tags": "marker_regions"
+                    },
+                    "action_type": "TagDatasetAction",
+                    "output_name": "out_png"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/snapatac2_peaks_and_motif/snapatac2_peaks_and_motif/2.6.4+galaxy1",
+            "tool_shed_repository": {
+                "changeset_revision": "64fa083411f1",
+                "name": "snapatac2_peaks_and_motif",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"advanced_common\": {\"show_log\": true}, \"method\": {\"method\": \"tl.marker_regions\", \"__current_case__\": 3, \"adata\": {\"__class__\": \"ConnectedValue\"}, \"groupby\": \"cell_type\", \"pvalue\": \"0.01\", \"width\": \"600\", \"height\": \"400\", \"out_file\": \"png\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "2.6.4+galaxy1",
+            "type": "tool",
+            "uuid": "443d404c-cae8-47a1-b362-ff54ba920cd7",
+            "when": null,
+            "workflow_outputs": [
+                {
+                    "label": "marker_regions",
+                    "output_name": "anndata_out",
+                    "uuid": "17da6c6b-7e4c-4c56-b37c-7077cc9b9c37"
+                },
+                {
+                    "label": "marker_regions-plot",
+                    "output_name": "out_png",
+                    "uuid": "0d573719-7631-4073-b260-5e2472b4f100"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "epigenetics",
+        "scATAC-seq",
+        "name:single-cell"
+    ],
+    "uuid": "c544c0c0-c838-47b5-8d05-976db9504e08",
+    "version": 29
+}
